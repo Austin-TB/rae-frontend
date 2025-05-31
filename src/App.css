@@ -1,0 +1,23 @@
+/* Basic reset and simple styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f0f0f0;
+}
+
+#root {
+  padding: 0;
+  margin: 0 auto;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, sans-serif;
+  background: #f0f0f0;
+}
