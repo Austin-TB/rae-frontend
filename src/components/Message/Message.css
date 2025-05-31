@@ -293,3 +293,11 @@
 .message--user hr {
   border-top-color: rgba(255, 255, 255, 0.3);
 } 
+
+
+@media (max-width: 768px) {
+  .message__content {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+  }
+}

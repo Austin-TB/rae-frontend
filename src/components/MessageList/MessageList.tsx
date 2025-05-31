@@ -13,7 +13,6 @@ export const MessageList = ({ messages, loading }: MessageListProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [lastMessageCount, setLastMessageCount] = useState(0);
 
-  // Smooth scroll to bottom when new messages are added
   useEffect(() => {
     if (messages.length > 0) {
       messagesEndRef.current?.scrollIntoView({ 
@@ -23,7 +22,6 @@ export const MessageList = ({ messages, loading }: MessageListProps) => {
     }
   }, [messages.length]);
 
-  // Track new messages for animation
   useEffect(() => {
     setLastMessageCount(messages.length);
   }, [messages.length]);
