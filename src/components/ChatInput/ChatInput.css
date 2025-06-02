@@ -4,6 +4,7 @@
 }
 
 .chat-input__container {
+  transition: all 0.2s;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -12,7 +13,7 @@
   background: white;
   border-radius: 2rem;
   padding: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 12px rgba(0, 0, 0, 0.1);
 }
 
 .chat-input__textarea {
@@ -61,4 +62,18 @@
 .chat-input__button:hover:not(:disabled) {
   background: #7BC499;
   transform: scale(1.05);
-} 
+}
+
+.chat-input__container:hover {
+  box-shadow: 0 0px 18px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.chat-input__button:active:not(:disabled) {
+  background: #4CA362;
+}
+
+.chat-input__button:active:not(:disabled) {
+  background: #4CA362;
+}
+
