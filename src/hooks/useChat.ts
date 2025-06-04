@@ -5,33 +5,48 @@ export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setSelectedFile(event.target.files[0]);
+    } else {
+      setSelectedFile(null);
+    }
+  };
 
   const sendMessage = async (messageOverride?: string) => {
     const currentMessage = messageOverride || input;
-    if (!currentMessage.trim() || loading) return;
+    if (!currentMessage.trim() && !selectedFile || loading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: currentMessage
+      content: currentMessage,
+      fileName: selectedFile?.name
     };
 
     setMessages(prev => [...prev, userMessage]);
     if (!messageOverride) {
       setInput('');
     }
+    // Don't clear selectedFile here, allow resending or sending with a different message.
+    // It will be cleared upon successful send or explicit clear action.
     setLoading(true);
 
     try {
+      const formData = new FormData();
+      formData.append('message', currentMessage);
+      formData.append('conversation_history', JSON.stringify(messages));
+      if (selectedFile) {
+        formData.append('file', selectedFile, selectedFile.name);
+      }
+
       // const response = await fetch('https://rae-backend.onrender.com/chat', {
       const response = await fetch('http://localhost:8000/chat', {
-
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          message: currentMessage,
-          conversation_history: messages
-        })
+        // No 'Content-Type' header for FormData, browser sets it with boundary
+        body: formData
       });
 
       const data = await response.json();
@@ -43,6 +58,7 @@ export const useChat = () => {
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+      setSelectedFile(null); // Clear file after successful send
     } catch (error) {
       console.error('Error:', error);
       setMessages(prev => [...prev, {
@@ -55,11 +71,18 @@ export const useChat = () => {
     }
   };
 
+  const clearSelectedFile = () => {
+    setSelectedFile(null);
+  };
+
   return {
     messages,
     input,
     loading,
+    selectedFile,
     setInput,
-    sendMessage
+    sendMessage,
+    handleFileChange,
+    clearSelectedFile
   };
 }; 

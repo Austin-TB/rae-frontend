@@ -3,7 +3,16 @@ import { MessageList, ChatInput, WelcomeMessage } from './components';
 import { useChat } from './hooks/useChat';
 
 function App() {
-  const { messages, input, loading, setInput, sendMessage } = useChat();
+  const { 
+    messages, 
+    input, 
+    loading, 
+    selectedFile, 
+    setInput, 
+    sendMessage, 
+    handleFileChange, 
+    clearSelectedFile 
+  } = useChat();
 
   return (
     <div className="app">
@@ -15,8 +24,11 @@ function App() {
       <ChatInput 
         input={input}
         loading={loading}
+        selectedFile={selectedFile}
         onInputChange={setInput}
         onSendMessage={sendMessage}
+        onFileChange={handleFileChange}
+        onClearFile={clearSelectedFile}
       />
     </div>
   );
