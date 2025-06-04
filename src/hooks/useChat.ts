@@ -6,28 +6,31 @@ export const useChat = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = async () => {
-    if (!input.trim() || loading) return;
+  const sendMessage = async (messageOverride?: string) => {
+    const currentMessage = messageOverride || input;
+    if (!currentMessage.trim() || loading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input
+      content: currentMessage
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    if (!messageOverride) {
+      setInput('');
+    }
     setLoading(true);
 
     try {
-      const response = await fetch('https://rae-backend.onrender.com/chat', {
-      // const response = await fetch('http://localhost:8000/chat', {
+      // const response = await fetch('https://rae-backend.onrender.com/chat', {
+      const response = await fetch('http://localhost:8000/chat', {
 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          message: input,
-          conversation_history: messages 
+          message: currentMessage,
+          conversation_history: messages
         })
       });
 

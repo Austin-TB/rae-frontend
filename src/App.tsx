@@ -7,7 +7,10 @@ function App() {
 
   return (
     <div className="app">
-      <WelcomeMessage noMessages={messages.length === 0} />
+      <WelcomeMessage 
+        noMessages={messages.length === 0}
+        onSendMessage={sendMessage} 
+      />
       <MessageList messages={messages} loading={loading} />
       <ChatInput 
         input={input}
