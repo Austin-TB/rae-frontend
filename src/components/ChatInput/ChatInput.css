@@ -1,5 +1,5 @@
 .chat-input {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   background: transparent;
 }
 
@@ -73,7 +73,77 @@
   background: #4CA362;
 }
 
-.chat-input__button:active:not(:disabled) {
-  background: #4CA362;
+.chat-input__attachment-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #f0f0f0;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-input__attachment-button:hover:not(:disabled) {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.chat-input__attachment-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-input__attachment-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.chat-input__selected-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem auto 0;
+  max-width: 780px;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chat-input__selected-file span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+  flex-grow: 1;
+}
+
+.chat-input__selected-file button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-input__selected-file button:hover {
+  color: #333;
+}
+
+.chat-input__selected-file button svg {
+  width: 14px;
+  height: 14px;
 }
 

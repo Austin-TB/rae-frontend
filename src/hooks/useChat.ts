@@ -6,13 +6,13 @@ export const useChat = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = async () => {
-    if (!input.trim() || loading) return;
+  const sendMessage = async (messageContent: string, file?: File | null) => {
+    if ((!messageContent.trim() && !file) || loading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input
+      content: messageContent + (file ? ` [Attached: ${file.name}]` : '')
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -20,15 +20,18 @@ export const useChat = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://rae-backend.onrender.com/chat', {
-      // const response = await fetch('http://localhost:8000/chat', {
+      const formData = new FormData();
+      formData.append('message', messageContent);
+      formData.append('conversation_history', JSON.stringify(messages));
 
+      if (file) {
+        formData.append('file', file);
+      }
+
+      // const response = await fetch('https://rae-backend.onrender.com/chat', {
+      const response = await fetch('http://localhost:8000/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          message: input,
-          conversation_history: messages 
-        })
+        body: formData
       });
 
       const data = await response.json();
@@ -41,11 +44,11 @@ export const useChat = () => {
 
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error sending message:', error);
       setMessages(prev => [...prev, {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Error: Could not connect to server. Make sure the backend is running on port 8000.'
+        content: 'Error: Could not connect to server or process request.'
       }]);
     } finally {
       setLoading(false);
