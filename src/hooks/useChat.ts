@@ -42,8 +42,8 @@ export const useChat = () => {
         formData.append('file', selectedFile, selectedFile.name);
       }
 
-      // const response = await fetch('https://rae-backend.onrender.com/chat', {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch('https://rae-backend-868097338717.europe-west1.run.app/chat', {
+      // const response = await fetch('http://localhost:8000/chat', {
         method: 'POST',
         // No 'Content-Type' header for FormData, browser sets it with boundary
         body: formData
