@@ -60,7 +60,7 @@ export const ChatInput = ({
           rows={1}
         />
         <button
-          onClick={onSendMessage}
+          onClick={() => onSendMessage()}
           disabled={(!input.trim() && !selectedFile) || loading}
           className="chat-input__button"
         >
