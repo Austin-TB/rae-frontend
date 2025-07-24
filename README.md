@@ -4,14 +4,14 @@ A modern, clean, and interactive chat interface for the Rae AI Assistant.
 
 ## Features
 
-- 🎨 Modern, minimal design with dark theme
-- 💬 Real-time chat interface with typing indicators
-- 📱 Responsive design that works on all devices
-- 🔄 Auto-scroll to latest messages
-- 🌐 Connection status indicator
-- ✨ Smooth animations and transitions
-- 📝 **Rich Markdown support** for enhanced message formatting
-- 🎯 Example prompts for quick start
+- Modern, minimal design with dark theme
+- Real-time chat interface with typing indicators
+- Responsive design that works on all devices
+- Auto-scroll to latest messages
+- Connection status indicator
+- Smooth animations and transitions
+- **Rich Markdown support** for enhanced message formatting
+- Example prompts for quick start
 
 ## Markdown Support
 
